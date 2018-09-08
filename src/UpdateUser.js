@@ -1,16 +1,30 @@
 import React, { Component } from 'react'
 
-class CreateUser extends Component {
+class UpdateUser extends Component {
 
-    constructor() {
-        super()
-        this.state = {
-            name: '',
-            managerId: '-1',
-            error: ''
-        }
+    constructor(props) {
+        super(props)
+
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.fetchUser = this.fetchUser.bind(this)
+
+        this.state = this.fetchUser(this.props.id)
+    }
+
+    fetchUser(id) {
+        const user = this.props.fetchUser(Number(id))  
+        return {
+            name: user.name, 
+            managerId: user.managerId !== null ? user.managerId : "-1",
+            error: ''
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.id !== prevProps.id) {
+            this.setState(this.fetchUser(this.props.id))
+        }
     }
 
     handleChange(event) {
@@ -22,10 +36,11 @@ class CreateUser extends Component {
     handleSubmit(event) {
         event.preventDefault()
         const user = { 
+            id: this.props.id, 
             name: this.state.name, 
-            managerId: (this.state.managerId === "-1" ? null : Number(this.state.managerId)) 
+            managerId: (this.state.managerId === "-1" ? null : Number(this.state.managerId))
         }
-        this.props.createUser(user)
+        this.props.updateUser(user)
             .then(() => this.props.history.push("/users"))
             .catch((error) => this.setState({error}))
     }
@@ -44,11 +59,11 @@ class CreateUser extends Component {
                         users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
                     }
                 </select>
-                <button type="submit">Save</button>
+                <button type="submit">Update</button>
                 {!error ? "" : `${error}` }
             </form>
         )
     }
 }
 
-export default CreateUser
+export default UpdateUser
