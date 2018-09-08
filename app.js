@@ -9,5 +9,5 @@ app.use(express.json());
 app.use('/api/users', require('./api/users'));
 
 app.get('/', (req, res, next) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
