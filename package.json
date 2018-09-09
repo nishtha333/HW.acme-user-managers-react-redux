@@ -32,6 +32,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm run webpack",
     "webpack": "./node_modules/webpack/bin/webpack.js",
     "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/acme_user_managers nodemon server.js --ignore src/ --ignore dist"
   },

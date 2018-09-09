@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
-import axios from 'axios'
 import Nav from './Nav'
 import Users from './Users'
 import Managers from './Managers'
-import CreateUser from './CreateUser'
-import UpdateUser from './UpdateUser'
+import CreateUpdateUser from './CreateUpdateUser'
 import store, { fetchUsers, deleteUser, createUser, updateUser } from './store'
 
 class App extends Component {
@@ -40,7 +38,7 @@ class App extends Component {
     }
 
     render() {
-        const { users, error } = store.getState()
+        const { users } = store.getState()
         const { deleteUser, createUser, updateUser } = this
 
         const managers = () => {
@@ -59,9 +57,9 @@ class App extends Component {
                     <Route path="/users" render={() => <Users users={users} managers={managers()} deleteUser={deleteUser} />}/>
                     <Route path="/managers" render={() => <Managers managers={managers()} />}/>
                     <Switch>
-                        <Route path="/users/create" render={({history}) => <CreateUser history={history} users={users} 
+                        <Route path="/users/create" render={({history}) => <CreateUpdateUser history={history} users={users} 
                             createUser={createUser} />}/>
-                        <Route path="/users/:id" render={({history, match}) => <UpdateUser history={history} users={users} 
+                        <Route path="/users/:id" render={({history, match}) => <CreateUpdateUser history={history} users={users} 
                             updateUser={updateUser} id={match.params.id} fetchUser={fetchUser} />}/>
                     </Switch>
                 </div>
