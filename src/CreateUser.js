@@ -6,8 +6,7 @@ class CreateUser extends Component {
         super()
         this.state = {
             name: '',
-            managerId: '-1',
-            error: ''
+            managerId: '-1'
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -26,13 +25,12 @@ class CreateUser extends Component {
             managerId: (this.state.managerId === "-1" ? null : Number(this.state.managerId)) 
         }
         this.props.createUser(user)
-            .then(() => this.props.history.push("/users"))
-            .catch((error) => this.setState({error}))
+        this.props.history.push('/users')
     }
 
     render() {
         const { users } = this.props
-        const { name, managerId, error } = this.state
+        const { name, managerId } = this.state
         const { handleChange, handleSubmit } = this
 
         return (
@@ -45,7 +43,6 @@ class CreateUser extends Component {
                     }
                 </select>
                 <button type="submit">Save</button>
-                {!error ? "" : `${error}` }
             </form>
         )
     }

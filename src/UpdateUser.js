@@ -16,8 +16,7 @@ class UpdateUser extends Component {
         const user = this.props.fetchUser(Number(id))  
         return {
             name: user.name, 
-            managerId: user.managerId !== null ? user.managerId : "-1",
-            error: ''
+            managerId: user.managerId !== null ? user.managerId : "-1"
         }
     }
 
@@ -41,13 +40,12 @@ class UpdateUser extends Component {
             managerId: (this.state.managerId === "-1" ? null : Number(this.state.managerId))
         }
         this.props.updateUser(user)
-            .then(() => this.props.history.push("/users"))
-            .catch((error) => this.setState({error}))
+        this.props.history.push('/users')
     }
 
     render() {
         const { users } = this.props
-        const { name, managerId, error } = this.state
+        const { name, managerId } = this.state
         const { handleChange, handleSubmit } = this
 
         return (
@@ -60,7 +58,6 @@ class UpdateUser extends Component {
                     }
                 </select>
                 <button type="submit">Update</button>
-                {!error ? "" : `${error}` }
             </form>
         )
     }
