@@ -3,8 +3,7 @@ import loggerMiddleware from 'redux-logger'
 import axios from 'axios'
 
 const initialState = {
-    users: [],
-    error: ''
+    users: []
 }
 
 // Action Types
@@ -82,8 +81,6 @@ function reducer (state = initialState, action) {
       case USER_UPDATED:
         users = state.users.map(user => user.id === action.user.id ? action.user : user)
         return {...state, users}
-      case ERROR_RECEIVED:
-        return {...state, error: action.error}
       default:
         return state
     }

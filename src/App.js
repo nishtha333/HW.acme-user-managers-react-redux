@@ -10,7 +10,6 @@ class App extends Component {
 
     constructor() {
         super()
-        this.state = store.getState()
         this.deleteUser = this.deleteUser.bind(this)
         this.createUser = this.createUser.bind(this)
         this.updateUser = this.updateUser.bind(this)
